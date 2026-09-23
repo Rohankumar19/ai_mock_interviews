@@ -13,6 +13,14 @@ import {
 async function Home() {
   const user = await getCurrentUser();
 
+  if (!user) {
+    return (
+      <p>
+        Please <Link href="/sign-in">sign in</Link> to view your interviews.
+      </p>
+    );
+  }
+
   const [userInterviews, allInterview] = await Promise.all([
     getInterviewsByUserId(user?.id!),
     getLatestInterviews({ userId: user?.id! }),
